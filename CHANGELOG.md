@@ -1,3 +1,6 @@
+### v1.3.0
+* Option to switch between PS2 and Xbox buttons
+
 ### v1.2.0
 * Faster app startup and overall faster app plus smaller footprint
 * A redesigned and more intuitive layout editor
