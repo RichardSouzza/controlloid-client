@@ -6,6 +6,7 @@ import { Alert, ScrollView } from "react-native";
 import Styles from "../styles";
 import * as Types from "../../types";
 import * as ApplicationThemes from "../themes";
+import { ControllerButtons } from "../../lib/controller";
 import { PreferencesActions } from "../../redux";
 import { PreferenceInputCard, PreferencePickCard } from "../components";
 
@@ -51,10 +52,12 @@ class PreferencesScreen extends React.Component {
   render() {
     const {
       applicationTheme,
+      controllerButtons,
       analogDeadZone,
       analogStickMax,
       socketMinLatency,
       saveApplicationTheme,
+      saveControllerButtons,
       saveAnalogDeadZone,
       saveAnalogStickMax,
       saveSocketMinLatency,
@@ -69,6 +72,13 @@ class PreferencesScreen extends React.Component {
             value={applicationTheme}
             options={_.values(ApplicationThemes)}
             onPick={(value) => saveApplicationTheme(value)}
+          />
+          <PreferencePickCard
+            name="Controller Buttons"
+            helperText="Change buttons appearance"
+            value={controllerButtons}
+            options={_.values(ControllerButtons)}
+            onPick={(value) => saveControllerButtons(value)}
           />
           <PreferenceInputCard
             name="Analog dead zone"
@@ -107,10 +117,12 @@ class PreferencesScreen extends React.Component {
 
 PreferencesScreen.propTypes = {
   applicationTheme: Types.applicationTheme.isRequired,
+  controllerButtons: Types.controllerButtons.isRequired,
   analogDeadZone: Types.number.isRequired,
   analogStickMax: Types.number.isRequired,
   socketMinLatency: Types.number.isRequired,
   saveApplicationTheme: Types.func.isRequired,
+  saveControllerButtons: Types.func.isRequired,
   saveAnalogDeadZone: Types.func.isRequired,
   saveAnalogStickMax: Types.func.isRequired,
   saveSocketMinLatency: Types.func.isRequired,
@@ -119,6 +131,7 @@ PreferencesScreen.propTypes = {
 
 const mapStateToProps = (state) => ({
   applicationTheme: state.preferences.applicationTheme,
+  controllerButtons: state.preferences.controllerButtons,
   analogDeadZone: state.preferences.analogDeadZone,
   analogStickMax: state.preferences.analogStickMax,
   socketMinLatency: state.preferences.socketMinLatency,
@@ -126,6 +139,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   saveApplicationTheme: PreferencesActions.setApplicationTheme,
+  saveControllerButtons: PreferencesActions.setControllerButtons,
   saveAnalogDeadZone: PreferencesActions.setAnalogDeadZone,
   saveAnalogStickMax: PreferencesActions.setAnalogStickMax,
   saveSocketMinLatency: PreferencesActions.setSocketMinLatency,

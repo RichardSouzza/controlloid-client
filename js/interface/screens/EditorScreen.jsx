@@ -9,7 +9,6 @@ import { List, Modal, Portal, Surface } from "react-native-paper";
 import { Dimensions, ScrollView, StatusBar, View } from "react-native";
 import Styles from "../styles";
 import * as Types from "../../types";
-import { Components } from "../../lib/controller";
 import { LayoutsActions } from "../../redux";
 import { ComponentEditorBox } from "../components";
 
@@ -113,8 +112,10 @@ class EditorScreen extends React.Component {
     this.closeComponentPicker();
   };
 
-  renderComponents = () =>
-    Components.map((component) => (
+  renderComponents = () => {
+    const { controllerButtons } = this.props;
+    const { buttons } = controllerButtons;
+    return buttons.map((component) => (
       <List.Item
         key={component.name}
         title={component.name}
@@ -122,6 +123,7 @@ class EditorScreen extends React.Component {
         onPress={() => this.addComponent(component)}
       />
     ));
+  };
 
   render() {
     const { layout, picking, activeComponentId } = this.state;
@@ -161,12 +163,14 @@ EditorScreen.propTypes = {
   layouts: Types.objectOfControllerLayouts.isRequired,
   createLayout: Types.func.isRequired,
   controllerTheme: Types.controllerTheme.isRequired,
+  controllerButtons: Types.controllerButtons.isRequired,
   navigation: Types.navigation.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   layouts: state.layouts.layouts,
   controllerTheme: state.preferences.controllerTheme,
+  controllerButtons: state.preferences.controllerButtons,
 });
 
 const mapDispatchToProps = {

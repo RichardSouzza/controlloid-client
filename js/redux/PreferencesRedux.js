@@ -1,10 +1,12 @@
 import { createActions, createReducer } from "reduxsauce";
-import { DarkTheme } from "../interface/themes";
 import { ControlloidTheme } from "../lib/controller/themes";
+import { DarkTheme } from "../interface/themes";
+import { PS2Buttons } from "../lib/controller/Components";
 
 const INITIAL_STATE = {
   controllerTheme: ControlloidTheme,
   applicationTheme: DarkTheme,
+  controllerButtons: PS2Buttons,
   analogDeadZone: 33,
   analogStickMax: 32767,
   socketMinLatency: 10,
@@ -13,6 +15,7 @@ const INITIAL_STATE = {
 export const { Types, Creators: Actions } = createActions({
   setControllerTheme: ["theme"],
   setApplicationTheme: ["theme"],
+  setControllerButtons: ["button"],
   setAnalogDeadZone: ["value"],
   setAnalogStickMax: ["value"],
   setSocketMinLatency: ["value"],
@@ -27,6 +30,10 @@ export const Reducer = createReducer(INITIAL_STATE, {
   [Types.SET_APPLICATION_THEME]: (state, action) => ({
     ...state,
     applicationTheme: action.theme,
+  }),
+  [Types.SET_CONTROLLER_BUTTONS]: (state, action) => ({
+    ...state,
+    controllerButtons: action.button,
   }),
   [Types.SET_ANALOG_DEAD_ZONE]: (state, action) => ({
     ...state,

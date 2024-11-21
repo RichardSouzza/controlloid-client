@@ -98,3 +98,19 @@ export const applicationTheme = shape({
     scale: number.isRequired,
   }).isRequired,
 });
+
+export const controllerButtons = shape({
+  name: string.isRequired,
+  buttons: arrayOf(
+    shape({
+      name: string.isRequired,
+      type: string.isRequired,
+      props: shape({
+        emitX: string,
+        emitY: string,
+        emit: string,
+        stickerIcon: string.isRequired,
+      }).isRequired,
+    }),
+  ).isRequired,
+});
